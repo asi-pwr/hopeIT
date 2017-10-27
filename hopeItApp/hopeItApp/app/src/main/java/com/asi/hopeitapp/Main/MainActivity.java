@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -18,6 +19,10 @@ import com.bumptech.glide.Glide;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
+
+    private final String CLASS_TAG = "MainActivity";
+
+    public static boolean appOnRestartCalled = false;
 
     private ActionBar appBar;
 
@@ -76,5 +81,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         return false;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        appOnRestartCalled = true;
+        Log.i(CLASS_TAG, "app restart");
     }
 }
