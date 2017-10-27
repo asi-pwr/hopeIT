@@ -1,9 +1,14 @@
 package com.asi.hopeitapp.Network;
 
 import com.asi.hopeitapp.Model.PatientList;
+import com.asi.hopeitapp.Model.Token;
+import com.asi.hopeitapp.Model.User;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 interface HopeService {
     //@GET("app_data")
@@ -14,4 +19,7 @@ interface HopeService {
 
     @GET("v1/patients")
     Call<PatientList> getPatients();
+
+    @POST("v1/payu/token")
+    Call<Token> getToken(@Body User user);
 }

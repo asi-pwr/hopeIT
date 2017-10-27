@@ -9,6 +9,9 @@ import android.util.Log;
 import com.asi.hopeitapp.Events.NetworkManagerReady;
 import com.asi.hopeitapp.Model.Patient;
 import com.asi.hopeitapp.Model.PatientList;
+import com.asi.hopeitapp.Model.Payu;
+import com.asi.hopeitapp.Model.Token;
+import com.asi.hopeitapp.Model.User;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -49,8 +52,12 @@ public class NetworkManager {
         return hopeService.getLastUpdateId();
     }
 
-    private Call<PatientList> patientCall(){
+    private Call<PatientList> patientCall() {
         return hopeService.getPatients();
+    }
+
+    private Call<Token> tokenCall(User user) {
+        return hopeService.getToken(user);
     }
 
     //json parsing
@@ -185,6 +192,29 @@ public class NetworkManager {
         });
     }
 
+    private Token token;
+
+
+    public void retrieveToken(String userEmail) {
+
+        tokenCall(new User(new Payu(userEmail))).enqueue(new Callback<Token>() {
+            @Override
+            public void onResponse(Call<Token> call, Response<Token> response) {
+                if (response.body() == null) {
+                    connectionProblem(new Throwable("Server returned null"));
+                    return;
+                }
+
+               setToken(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Token> call, Throwable t) {
+                connectionProblem(t);
+            }
+        });
+    }
+
     private void postUpdate(final Context context) {
         localLastUpdateId = apiLastUpdateId;
 
@@ -205,5 +235,13 @@ public class NetworkManager {
 
     public void networkProblemInfoDisplayed(){
         dbState = 1;
+    }
+
+    public Token getToken() {
+        return token;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
     }
 }
