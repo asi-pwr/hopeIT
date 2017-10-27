@@ -8,4 +8,5 @@
 
     <string name="menu_main">Główne</string>
     <string name="no_server_connection">No server connection, browse only mode</string>
+    <string name="title_main">Strona główna</string>
 </resources>

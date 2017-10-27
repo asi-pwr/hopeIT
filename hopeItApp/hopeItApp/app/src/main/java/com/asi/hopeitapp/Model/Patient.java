@@ -3,17 +3,12 @@ package com.asi.hopeitapp.Model;
 
 import java.io.Serializable;
 
-import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
 
 public class Patient extends SugarRecord<Patient> implements Serializable
 {
-
-    @SerializedName("id")
-    @Expose
-    private int id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -31,8 +26,7 @@ public class Patient extends SugarRecord<Patient> implements Serializable
     private String updatedAt;
     private final static long serialVersionUID = -8910290134867077225L;
 
-    public Patient(int id, String name, String description, String photo, String createdAt, String updatedAt) {
-        this.id = id;
+    public Patient(String name, String description, String photo, String createdAt, String updatedAt) {
         this.name = name;
         this.description = description;
         this.photo = photo;

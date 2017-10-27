@@ -77,6 +77,10 @@ public class NetworkManager {
     }
 
     public void checkForUpdate(final Context context){
+        loadAppData(context);
+        //temporary no lastUpdate implemented on backend yet
+
+        /*
         dbState = 0; //no db access
 
         SharedPreferences settings = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
@@ -94,6 +98,7 @@ public class NetworkManager {
                 dbState = 2; //get update
             }
         }
+        */
     }
 
     private void updateCheck(final Context context) {

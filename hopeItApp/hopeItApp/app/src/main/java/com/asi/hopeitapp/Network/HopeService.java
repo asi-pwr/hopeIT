@@ -12,6 +12,6 @@ interface HopeService {
     @GET("v1/last_update")
     Call<String> getLastUpdateId();
 
-    @GET("v1/last_update")
+    @GET("v1/patients")
     Call<PatientList> getPatients();
 }
