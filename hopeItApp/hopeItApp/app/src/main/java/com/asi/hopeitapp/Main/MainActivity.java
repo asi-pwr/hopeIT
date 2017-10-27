@@ -1,7 +1,9 @@
-package com.asi.hopeitapp;
+package com.asi.hopeitapp.Main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.asi.hopeitapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
