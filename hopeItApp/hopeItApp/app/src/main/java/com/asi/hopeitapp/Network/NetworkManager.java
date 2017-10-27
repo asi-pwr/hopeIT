@@ -6,6 +6,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.asi.hopeitapp.Events.NetworkManagerReady;
+import com.asi.hopeitapp.Model.Patient;
+import com.asi.hopeitapp.Model.PatientList;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,7 +28,18 @@ public class NetworkManager {
     private int apiLastUpdateId;
     private int localLastUpdateId;
 
-    NetworkManager(){
+    private static NetworkManager instance = null;
+
+    //yeah I know...
+    public static NetworkManager getInstance(){
+        if(instance == null){
+            instance = new NetworkManager();
+        }
+
+        return instance;
+    }
+
+    private NetworkManager(){
         hopeService = HopeApi.getClient().create(HopeService.class);
     }
 
@@ -30,8 +49,16 @@ public class NetworkManager {
         return hopeService.getLastUpdateId();
     }
 
+    private Call<PatientList> patientCall(){
+        return hopeService.getPatients();
+    }
+
     //json parsing
 
+    private List<Patient> fetchPatients(Response<PatientList> response) {
+        PatientList data = response.body();
+        return data.getPatients();
+    }
 
 
     private boolean checkNetworkStatus(final Context context){
@@ -50,6 +77,10 @@ public class NetworkManager {
     }
 
     public void checkForUpdate(final Context context){
+        loadAppData(context);
+        //temporary no lastUpdate implemented on backend yet
+
+        /*
         dbState = 0; //no db access
 
         SharedPreferences settings = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
@@ -61,12 +92,13 @@ public class NetworkManager {
         }
         else {
             if(localLastUpdateId == 0){
-                dbState = 3; //get init data state
+                dbState = 3; //get init data
             }
             else {
-                dbState = 2; //get
+                dbState = 2; //get update
             }
         }
+        */
     }
 
     private void updateCheck(final Context context) {
@@ -74,17 +106,18 @@ public class NetworkManager {
             loadAppData(context);
         } else {
             Log.i(CLASS_TAG, "Local db up-to-date");
-            dbState = 1;
+            dbState = 1; //db ready
+            EventBus.getDefault().postSticky(new NetworkManagerReady(true));
         }
     }
 
     private void connectionProblem(Throwable throwable){
         Log.e(CLASS_TAG, "connection problem: " + throwable.getMessage());
         if(localLastUpdateId == 0){
-            dbState = 3;
+            dbState = 3; //get init data
         }
         else {
-            dbState = 2;
+            dbState = 2; //get update
         }
     }
 
@@ -111,7 +144,45 @@ public class NetworkManager {
     }
 
     private void loadAppData(final Context context){
+        patientCall().enqueue(new Callback<PatientList>() {
+            @Override
+            public void onResponse(Call<PatientList> call, Response<PatientList> response) {
+                if (response.body() == null) {
+                    connectionProblem(new Throwable("Server returned null"));
+                    return;
+                }
 
+                List<Patient> patients = fetchPatients(response);
+
+                Log.i(CLASS_TAG, "Api Test: " + patients.get(0).getName());
+
+                new Thread(() -> {
+                    boolean stopLoad = false;
+
+                    try { //delete entries, reset id autoincrement
+                        Patient.deleteAll(Patient.class);
+                        Patient.executeQuery("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'PATIENT'");
+                    } catch (Exception e) {
+                        Log.e(CLASS_TAG, "local db critical error: " + e.getMessage());
+                        stopLoad = true;
+                    }
+
+                    if (!stopLoad) {
+                        for (Patient patient : patients) {
+                            patient.setId(null);
+                            patient.save();
+                        }
+                    }
+
+                    postUpdate(context);
+                }).start();
+            }
+
+            @Override
+            public void onFailure(Call<PatientList> call, Throwable t) {
+                connectionProblem(t);
+            }
+        });
     }
 
     private void postUpdate(final Context context) {
@@ -125,9 +196,14 @@ public class NetworkManager {
         editor.apply();
 
         dbState = 1; //db ready
+        EventBus.getDefault().postSticky(new NetworkManagerReady(true));
     }
 
     public int getDbState() {
         return dbState;
+    }
+
+    public void networkProblemInfoDisplayed(){
+        dbState = 1;
     }
 }

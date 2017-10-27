@@ -2,6 +2,8 @@ package com.asi.hopeitapp.Main;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -9,17 +11,28 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.asi.hopeitapp.MainPage.MainPageFragment;
 import com.asi.hopeitapp.R;
 import com.bumptech.glide.Glide;
+
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
+    private final String CLASS_TAG = "MainActivity";
+
+    public static boolean appOnRestartCalled = false;
+
     private ActionBar appBar;
+
+    private int currentMenuItem = 0;
+    private Stack<Fragment> fragmentBackStack = new Stack<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +52,34 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         appBar = getSupportActionBar();
+
+        if (savedInstanceState == null) {
+            loadBaseFragment();
+        }
+    }
+
+    private void loadBaseFragment(){
+        MainPageFragment mainPageFragment = new MainPageFragment();
+        fragmentBackStack.add(mainPageFragment);
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mainPageFragment).commit();
+        setAppBar(mainPageFragment);
+    }
+
+    private void switchFragment(Fragment fragment){
+        fragmentBackStack.add(fragment);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.commit();
+        setAppBar(fragment);
+    }
+
+    private void setAppBar(Fragment fragment) {
+        if (appBar != null) {
+            if (fragment instanceof MainPageFragment) {
+                appBar.setTitle(R.string.title_main);
+                currentMenuItem = 0;
+            }
+        }
     }
 
     @Override
@@ -48,7 +89,6 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         }
         else {
-            /*
             if(fragmentBackStack.size() >= 2){ //manage custom fragment back stack
                 fragmentBackStack.pop();
                 switchFragment(fragmentBackStack.pop());
@@ -56,7 +96,6 @@ public class MainActivity extends AppCompatActivity
             else {
                 super.onBackPressed();
             }
-            */
         }
     }
 
@@ -75,6 +114,20 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks
         int id = item.getItemId();
 
+        if (id == R.id.nav_main && currentMenuItem != 0) {
+            currentMenuItem = 0;
+            switchFragment(new MainPageFragment());
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return false;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        appOnRestartCalled = true;
+        Log.i(CLASS_TAG, "app restart");
     }
 }

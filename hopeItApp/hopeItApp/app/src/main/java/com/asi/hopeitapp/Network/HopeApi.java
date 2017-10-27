@@ -21,7 +21,7 @@ class HopeApi {
 
             retrofit = new Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl("http://10.99.130.96:8123/api/")
+                    .baseUrl("http://10.99.130.75:3000/api/")
                     .client(okHttpClient)
                     .build();
         }
