@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">HopeItApp</string>
+    <string name="hopeit_log_decription">hopeIT log</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="menu_main">Główne</string>
 </resources>
