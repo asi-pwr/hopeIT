@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/patientFrameLayout"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_margin="4dp"
+                android:background="@color/colorPrimary">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleX="0.5"
+                    android:scaleY="0.5"
+                    android:src="@drawable/heart_place_holder"
+                    android:contentDescription="@string/patient_picture_overlay"/>
+
+                <ImageView
+                    android:id="@+id/patientItemPicture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/patient_picture_description"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/heart_overlay"
+                    android:contentDescription="@string/patient_picture_overlay"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/patientItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_toEndOf="@id/patientFrameLayout"
+                android:textSize="17sp"
+                android:text="@string/patient_place_holder"/>
+
+            <TextView
+                android:id="@+id/patientItemDescription"
+                android:layout_width="210dp"
+                android:layout_height="95dp"
+                android:layout_alignStart="@id/patientItemName"
+                android:layout_below="@id/patientItemName"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

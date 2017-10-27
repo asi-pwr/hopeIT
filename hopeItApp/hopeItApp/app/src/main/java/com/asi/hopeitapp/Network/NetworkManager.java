@@ -77,8 +77,7 @@ public class NetworkManager {
     }
 
     public void checkForUpdate(final Context context){
-        loadAppData(context);
-        //temporary no lastUpdate implemented on backend yet
+        loadAppData(context); //temporary no lastUpdate implemented on backend yet
 
         /*
         dbState = 0; //no db access

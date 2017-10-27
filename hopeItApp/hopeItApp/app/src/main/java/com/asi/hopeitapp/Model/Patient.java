@@ -26,6 +26,10 @@ public class Patient extends SugarRecord<Patient> implements Serializable
     private String updatedAt;
     private final static long serialVersionUID = -8910290134867077225L;
 
+    public Patient(){
+
+    }
+
     public Patient(String name, String description, String photo, String createdAt, String updatedAt) {
         this.name = name;
         this.description = description;

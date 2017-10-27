@@ -9,4 +9,8 @@
     <string name="menu_main">Główne</string>
     <string name="no_server_connection">No server connection, browse only mode</string>
     <string name="title_main">Strona główna</string>
+    <string name="patient_place_holder">Patient place holder</string>
+    <string name="patient_picture_description">Patient picture</string>
+    <string name="pomagam_button">Pomagam!</string>
+    <string name="patient_picture_overlay">patient picture overlay</string>
 </resources>
