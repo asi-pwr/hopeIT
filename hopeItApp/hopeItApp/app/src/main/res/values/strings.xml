@@ -9,4 +9,9 @@
     <string name="menu_main">Główne</string>
     <string name="no_server_connection">No server connection, browse only mode</string>
     <string name="title_main">Strona główna</string>
+
+    <string name="payu_language">auto</string> <!-- auto | Polish | English | Czech | German -->
+    <string name="payu_environment">local</string> <!-- local | production | sandbox -->
+    <string name="payu_token_service_class_full_qualified_name">com.example.service.YourTokenProvide
+rService</string>
 </resources>
