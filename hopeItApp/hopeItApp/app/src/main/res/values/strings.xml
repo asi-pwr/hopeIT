@@ -29,4 +29,5 @@ rService</string>
     <string name="info_image">info image</string>
     <string name="info_info">Aplikacja powstała na Hakatonie HopeIT \n\nPrzewozy Regionalne: \nMichał Zając,\nJan Librowski,\nSławomir Górawski,\nJakub Dorda</string>
     <string name="menu_info">Informacje</string>
+    <string name="drower_background">drower background</string>
 </resources>
