@@ -13,14 +13,14 @@ import java.util.UUID;
  * Created by sgorawski on 27.10.17.
  */
 
-public class Payment {
+public class DonationMaker {
     private Integer amount;
     private Integer donationTypeId;
     private String extOrderId;
     private Integer patientId;
     private PaymentService mPaymentService;
 
-    public Payment(Integer amount, Integer patientId) {
+    public DonationMaker(Integer amount, Integer patientId) {
         this.amount = amount;
         this.patientId = patientId;
 

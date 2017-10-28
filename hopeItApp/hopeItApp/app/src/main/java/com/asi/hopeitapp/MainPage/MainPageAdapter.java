@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.asi.hopeitapp.Model.Patient;
-import com.asi.hopeitapp.Payments.Payment;
+import com.asi.hopeitapp.Payments.DonationMaker;
 import com.asi.hopeitapp.R;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.DecodeFormat;
@@ -118,7 +118,7 @@ class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.Holder> {
 
     private void payClicked(Patient patient){
         // TODO login conditions etc
-        Payment payment = new Payment(20000, 1);
+        DonationMaker payment = new DonationMaker(20000, 1);
         payment.make();
     }
 }
