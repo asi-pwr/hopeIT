@@ -32,5 +32,5 @@ interface HopeService {
     Call<Token> getToken(@Body PayuWrapper payuWrapper);
 
     @POST("v1/donations")
-    Call<String> postDonation(@Body DonationWrapper donationWrapper);
+    Call<DonationWrapper> postDonation(@Body DonationWrapper donationWrapper);
 }

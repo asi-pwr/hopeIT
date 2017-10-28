@@ -1,5 +1,7 @@
 package com.asi.hopeitapp.Main;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -123,6 +125,8 @@ public class MainActivity extends AppCompatActivity
                 .load("http://vps345245.ovh.net/static/images/logos/hopeit-logo.png")
                 .into(menuImage);
 
+        menuImage.setOnClickListener(view -> lunchWebsite("http://hopeit.pl/"));
+
         return true;
     }
 
@@ -154,5 +158,9 @@ public class MainActivity extends AppCompatActivity
         super.onRestart();
         appOnRestartCalled = true;
         Log.i(CLASS_TAG, "app restart");
+    }
+
+    private void lunchWebsite(String url){
+        startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url)));
     }
 }
