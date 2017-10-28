@@ -10,4 +10,9 @@
         android:icon="@drawable/ic_heart"
         android:title="@string/menu_payments" />
 
+    <item
+        android:id="@+id/nav_messages"
+        android:icon="@drawable/ic_heart"
+        android:title="@string/menu_messages" />
+
 </menu>

@@ -21,4 +21,9 @@
     <string name="payu_token_service_class_full_qualified_name">com.example.service.YourTokenProvide
 rService</string>
     <string name="patient_place_holder2">Patient Place holder</string>
+    <string name="message_place_holder">sdfhbsdkbh</string>
+    <string name="message_title_place_holder">Title</string>
+    <string name="message_date_place_holder">2137-21-37</string>
+    <string name="menu_messages">Wiadomości Fundacji</string>
+    <string name="title_messages">Wiadomości od fundacji</string>
 </resources>
