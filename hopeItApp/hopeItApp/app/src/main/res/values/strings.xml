@@ -26,4 +26,7 @@ rService</string>
     <string name="message_date_place_holder">2137-21-37</string>
     <string name="menu_messages">Wiadomości Fundacji</string>
     <string name="title_messages">Wiadomości od fundacji</string>
+    <string name="payments_text1">Twoje</string>
+    <string name="payments_text2">Darowizny</string>
+    <string name="payments_text3">...dzikujemy za każde wsparcie</string>
 </resources>
