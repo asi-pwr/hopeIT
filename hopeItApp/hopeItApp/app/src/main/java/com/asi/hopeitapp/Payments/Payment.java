@@ -31,7 +31,7 @@ public class Payment {
     public void make() {
         DonationWrapper donation = new DonationWrapper(new Donation(amount, donationTypeId, patientId, extOrderId));
         NetworkManager networkManager = NetworkManager.getInstance();
-        //networkManager.postDonation(donation);
+        networkManager.postDonation(donation);
 
         startPayment();
     }

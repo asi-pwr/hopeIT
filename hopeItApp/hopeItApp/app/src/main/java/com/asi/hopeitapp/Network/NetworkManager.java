@@ -243,7 +243,7 @@ public class NetworkManager {
         postUpdate(context);
     }
 
-    private Token token;
+    private Token token = null;
 
 
     public void retrieveToken(PayuWrapper payuWrapper) {
@@ -269,13 +269,20 @@ public class NetworkManager {
         });
     }
 
-    public void submitDonation(DonationWrapper donationWrapper) {
+    private Boolean confirmation = null;
+
+    public void postDonation(DonationWrapper donationWrapper) {
         donationCall(donationWrapper).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.body() == null) {
                     connectionProblem(new Throwable("Server returned null"));
                     return;
+                }
+
+                synchronized (this) {
+                    setConfirmation(true);
+                    notifyAll();
                 }
             }
 
@@ -314,5 +321,13 @@ public class NetworkManager {
 
     public void setToken(Token token) {
         this.token = token;
+    }
+
+    public Boolean getConfirmation() {
+        return confirmation;
+    }
+
+    public void setConfirmation(Boolean confirmation) {
+        this.confirmation = confirmation;
     }
 }
