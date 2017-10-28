@@ -17,7 +17,7 @@
     <string name="menu_payments">Moje akcje</string>
 
     <string name="payu_language">auto</string> <!-- auto | Polish | English | Czech | German -->
-    <string name="payu_environment">local</string> <!-- local | production | sandbox -->
+    <string name="payu_environment">sandbox</string> <!-- local | production | sandbox -->
     <string name="payu_token_service_class_full_qualified_name">com.example.service.YourTokenProvide
 rService</string>
     <string name="patient_place_holder2">Patient placeholder</string>
@@ -27,6 +27,6 @@ rService</string>
     <string name="menu_messages">Wiadomości</string>
     <string name="title_messages">Wiadomości od fundacji</string>
     <string name="info_image">info image</string>
-    <string name="info_info">Aplikacja powstała na Hakatonie HopeIT \n\nPrzewozy Regionalne: \nMichał Zając,\nJan Librowski,\nSławomir Górawski,\nJakub Dorda</string>
+    <string name="info_info">Aplikacja powstała na Hakcatonie HopeIT.\n\nPrzewozy Regionalne:\nMichał Zając,\nJan Librowski,\nSławomir Górawski,\nJakub Dorda</string>
     <string name="menu_info">Informacje</string>
 </resources>
