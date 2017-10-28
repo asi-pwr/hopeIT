@@ -6,9 +6,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
 
-    <string name="menu_main">Strona główna</string>
+    <string name="menu_main">Aktualności</string>
     <string name="no_server_connection">Brak połączenia z Internetem, możesz tylko przeglądać</string>
-    <string name="title_main">Strona główna</string>
+    <string name="title_main">Aktualności</string>
     <string name="patient_place_holder">Patient placeholder</string>
     <string name="patient_picture_description">Patient picture</string>
     <string name="pomagam_button">Pomagam</string>
@@ -25,7 +25,7 @@ rService</string>
     <string name="message_title_place_holder">Title</string>
     <string name="message_date_place_holder">2137-21-37</string>
     <string name="menu_messages">Wiadomości</string>
-    <string name="title_messages">Wiadomości od fundacji</string>
+    <string name="title_messages">Wiadomości</string>
     <string name="info_image">info image</string>
     <string name="info_info">Aplikacja powstała na Hakcatonie HopeIT.\n\nPrzewozy Regionalne:\nMichał Zając,\nJan Librowski,\nSławomir Górawski,\nJakub Dorda</string>
     <string name="menu_info">Informacje</string>
