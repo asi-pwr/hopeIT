@@ -20,6 +20,9 @@ import com.asi.hopeitapp.R;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.payu.android.sdk.payment.PaymentService;
+import com.payu.android.sdk.payment.model.Currency;
+import com.payu.android.sdk.payment.model.Order;
 
 import java.util.List;
 
@@ -89,7 +92,7 @@ class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.Holder> {
         }
     }
 
-    private void showDetailsDialog(Patient patient){
+    private void showDetailsDialog(Patient patient) {
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.item_patinet_dialog);
@@ -106,7 +109,7 @@ class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.Holder> {
 
         Button payButton = dialog.findViewById(R.id.patientPayButton);
         payButton.setOnClickListener(view -> {
-            payClicked(patient);
+            payClicked();
             dialog.dismiss();
         });
 
@@ -119,9 +122,17 @@ class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.Holder> {
                 .into(picture);
     }
 
-    private void payClicked(Patient patient){
+    private void payClicked() {
         // TODO login conditions etc
-        Intent intent = new Intent(context, CartActivity.class);
-        context.startActivity(intent);
+        DonationMaker payment = new DonationMaker(20000, 1);
+        payment.make();
+/*
+        PaymentService.createInstance(context)
+                .pay(new Order.Builder()
+                .withAmount(500) // 5 PLN
+                .withCurrency(Currency.PLN)
+                .withDescription("Example payment")
+                .build());
+                */
     }
 }

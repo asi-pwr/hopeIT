@@ -31,6 +31,9 @@ public class Token implements Serializable
     private String grantType;
     private final static long serialVersionUID = 5231114265497191023L;
 
+    public Token(){
+    }
+
     public String getAccessToken() {
         return accessToken;
     }

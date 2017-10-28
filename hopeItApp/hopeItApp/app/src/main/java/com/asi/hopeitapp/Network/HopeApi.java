@@ -3,6 +3,7 @@ package com.asi.hopeitapp.Network;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -13,7 +14,10 @@ class HopeApi {
     static Retrofit getClient(){
         if(retrofit == null){
 
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                    .addInterceptor(interceptor)
                     .connectTimeout(6, TimeUnit.SECONDS)
                     .readTimeout(6, TimeUnit.SECONDS)
                     .writeTimeout(6, TimeUnit.SECONDS)

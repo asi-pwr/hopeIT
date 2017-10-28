@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="payu_language">Auto</string> <!-- auto | Polish | English | Czech | German -->
+    <string name="payu_environment">local</string> <!-- local | production | sandbox -->
+    <string name="payu_token_service_class_full_qualified_name">com.asi.hopeitapp.Payments.MerchantTokenProviderService</string>
+</resources>

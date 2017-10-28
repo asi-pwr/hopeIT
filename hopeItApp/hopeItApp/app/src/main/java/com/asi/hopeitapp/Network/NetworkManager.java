@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.asi.hopeitapp.Model.Donation;
 import com.asi.hopeitapp.Model.DonationWrapper;
 import com.asi.hopeitapp.Model.Message;
 import com.asi.hopeitapp.Model.MessageList;
@@ -15,7 +14,7 @@ import com.asi.hopeitapp.Model.PatientList;
 import com.asi.hopeitapp.Model.Payment;
 import com.asi.hopeitapp.Model.PaymentList;
 import com.asi.hopeitapp.Model.PayuWrapper;
-import com.asi.hopeitapp.Model.Token;
+import com.asi.hopeitapp.Model.TokenWraper;
 
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class NetworkManager {
         return hopeService.getMessages();
     }
 
-    private Call<Token> tokenCall(PayuWrapper payuWrapper) {
+    private Call<TokenWraper> tokenCall(PayuWrapper payuWrapper) {
         return hopeService.getToken(payuWrapper);
     }
 
@@ -296,14 +295,13 @@ public class NetworkManager {
         postUpdate(context);
     }
 
-    private Token token = null;
+    private TokenWraper token = null;
 
 
     public void retrieveToken(PayuWrapper payuWrapper) {
-
-        tokenCall(payuWrapper).enqueue(new Callback<Token>() {
+        tokenCall(payuWrapper).enqueue(new Callback<TokenWraper>() {
             @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
+            public void onResponse(Call<TokenWraper> call, Response<TokenWraper> response) {
                 if (response.body() == null) {
                     connectionProblem(new Throwable("Server returned null"));
                     return;
@@ -316,7 +314,7 @@ public class NetworkManager {
             }
 
             @Override
-            public void onFailure(Call<Token> call, Throwable t) {
+            public void onFailure(Call<TokenWraper> call, Throwable t) {
                 connectionProblem(t);
             }
         });
@@ -367,11 +365,11 @@ public class NetworkManager {
         dbState = 1;
     }
 
-    public Token getToken() {
+    public TokenWraper getToken() {
         return token;
     }
 
-    public void setToken(Token token) {
+    public void setToken(TokenWraper token) {
         this.token = token;
     }
 

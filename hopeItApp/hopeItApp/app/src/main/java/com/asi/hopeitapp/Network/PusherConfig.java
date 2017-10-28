@@ -33,7 +33,7 @@ public class PusherConfig {
 
         Channel channel = pusher.subscribe("user-notifications-1");
 
-        channel.bind("new-message", new SubscriptionEventListener() {
+        channel.bind("new-notification", new SubscriptionEventListener() {
             @Override
             public void onEvent(String channelName, String eventName, final String data) {
                 System.out.println(data);
@@ -52,13 +52,13 @@ public class PusherConfig {
         contentIntent = PendingIntent.getActivity(context, 0, intent , 0);
 
         String title = data.substring(data.indexOf("\"title\":\"") + 9, data.indexOf("\",\"message"));
-        String message = data.substring(data.indexOf("\"message\":\"") + 8, data.indexOf("\"}"));
+        String message = data.substring(data.indexOf("\"message\":\"") + 11, data.indexOf("\"}"));
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "default")
                 .setDefaults(DEFAULT_VIBRATE | DEFAULT_LIGHTS)
                 .setSmallIcon(R.drawable.ic_heart)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                        R.mipmap.ic_launcher))
+                        R.drawable.ic_heart))
                 .setContentTitle(title)
                 .setContentIntent(contentIntent)
                 .setContentText(message)

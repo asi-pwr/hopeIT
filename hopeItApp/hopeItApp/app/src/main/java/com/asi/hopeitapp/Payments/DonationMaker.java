@@ -32,13 +32,14 @@ public class DonationMaker {
         DonationWrapper donation = new DonationWrapper(new Donation(amount, donationTypeId, patientId, extOrderId));
         NetworkManager networkManager = NetworkManager.getInstance();
         networkManager.postDonation(donation);
+        networkManager.getToken();
 
         startPayment();
     }
 
     private void startPayment() {
         paymentService.pay(new Order.Builder()
-                .withNotifyUrl("link")
+                .withNotifyUrl("http://10.99.130.75:3000/api/payments/payu")
                 .withAmount(amount)
                 .withCurrency(Currency.PLN)
                 .withExtOrderId(extOrderId)

@@ -4,7 +4,7 @@ import com.asi.hopeitapp.Model.DonationWrapper;
 import com.asi.hopeitapp.Model.MessageList;
 import com.asi.hopeitapp.Model.PatientList;
 import com.asi.hopeitapp.Model.PaymentList;
-import com.asi.hopeitapp.Model.Token;
+import com.asi.hopeitapp.Model.TokenWraper;
 import com.asi.hopeitapp.Model.PayuWrapper;
 
 import retrofit2.Call;
@@ -29,7 +29,7 @@ interface HopeService {
     Call<MessageList> getMessages();
 
     @POST("v1/payu/token")
-    Call<Token> getToken(@Body PayuWrapper payuWrapper);
+    Call<TokenWraper> getToken(@Body PayuWrapper payuWrapper);
 
     @POST("v1/donations")
     Call<DonationWrapper> postDonation(@Body DonationWrapper donationWrapper);

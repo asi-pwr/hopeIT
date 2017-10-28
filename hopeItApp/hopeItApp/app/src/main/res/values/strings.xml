@@ -16,10 +16,7 @@
     <string name="title_payments">Moje akcje</string>
     <string name="menu_payments">Moje akcje</string>
 
-    <string name="payu_language">Auto</string> <!-- auto | Polish | English | Czech | German -->
-    <string name="payu_environment">local</string> <!-- local | production | sandbox -->
-    <string name="payu_token_service_class_full_qualified_name">com.example.service.YourTokenProvide
-rService</string>
+
     <string name="patient_place_holder2">Patient placeholder</string>
     <string name="message_place_holder">sdfhbsdkbh</string>
     <string name="message_title_place_holder">Title</string>
