@@ -1,17 +1,14 @@
 package com.asi.hopeitapp.Main;
 
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.asi.hopeitapp.Events.NetworkManagerReady;
 import com.asi.hopeitapp.Network.NetworkManager;
 import com.asi.hopeitapp.R;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -23,6 +20,8 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         networkManager = NetworkManager.getInstance();
+        networkHandler.postDelayed(networkStatusCheck, 50);
+
     }
 
     @Override
@@ -31,45 +30,48 @@ public abstract class BaseFragment extends Fragment {
         if(MainActivity.appOnRestartCalled) {
             loadingUpdate();
             networkManager.checkForUpdate(getContext());
+            networkHandler.postDelayed(networkStatusCheck, 10);
         }
     }
 
-    private void run(){
-        switch (networkManager.getDbState()){
-            case 1:
-                loadContent();
-                break;
-            case 2:
-                loadContent();
-                if(getContext() != null) {
-                    Toast.makeText(getContext(), R.string.no_server_connection,
-                            Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case 3:
-                firstLoadFailure();
+    private Handler networkHandler = new Handler();
+    private Runnable networkStatusCheck = new Runnable() {
+        @Override
+        public void run() {
+            switch (networkManager.getDbState()) {
+                case 1:
+                    loadContent();
+                    networkHandler.removeCallbacks(this);
+                    break;
+                case 2:
+                    loadContent();
+                    if (getContext() != null) {
+                        Toast.makeText(getContext(), R.string.no_server_connection,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    networkHandler.removeCallbacks(this);
+                    break;
+                case 3:
+                    firstLoadFailure();
+                    networkHandler.removeCallbacks(this);
+                    break;
+                default:
+                    networkHandler.postDelayed(this, 10);
+            }
+
         }
-    }
+    };
 
     @Override
     public void onPause() {
         super.onPause();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
+        networkHandler.removeCallbacks(networkStatusCheck);
     }
 
     protected void firstLoadFailure(){
         Log.e(CLASS_TAG, "Db no init data!, displaying warning...");
+        Toast.makeText(getContext(), "Brak połączenia z internetem\n -brak zapisanych danych",
+                Toast.LENGTH_LONG).show();
     }
 
     protected void loadingUpdate(){
@@ -80,12 +82,4 @@ public abstract class BaseFragment extends Fragment {
         Log.i(CLASS_TAG, "Db ready, loading content...");
     }
 
-    @Subscribe
-    public void networkEvent(NetworkManagerReady event) {
-        EventBus.getDefault().removeStickyEvent(event);
-        if (event.isNetworkManagerFinished()){
-            Log.i(CLASS_TAG, "Network manager ready msg received");
-            run();
-        }
-    }
 }

@@ -35,9 +35,13 @@ public class MainPageFragment extends BaseFragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        loadRecyclerView();
-
         return view;
+    }
+
+    @Override
+    protected void loadContent() {
+        super.loadContent();
+        loadRecyclerView();
     }
 
     private void loadRecyclerView(){
