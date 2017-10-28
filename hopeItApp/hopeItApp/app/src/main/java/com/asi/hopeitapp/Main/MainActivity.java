@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.asi.hopeitapp.Info.InfoFragment;
 import com.asi.hopeitapp.MainPage.MainPageFragment;
 import com.asi.hopeitapp.Messages.MessagesFragment;
 import com.asi.hopeitapp.MyPayments.PaymentsFragment;
@@ -98,6 +99,10 @@ public class MainActivity extends AppCompatActivity
                 appBar.setTitle(R.string.title_messages);
                 currentMenuItem = 2;
             }
+            if (fragment instanceof InfoFragment) {
+                appBar.setTitle(R.string.menu_info);
+                currentMenuItem = 3;
+            }
         }
     }
 
@@ -146,6 +151,10 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_messages && currentMenuItem != 2) {
             currentMenuItem = 2;
             switchFragment(new MessagesFragment());
+        }
+        else if (id == R.id.nav_info && currentMenuItem != 3) {
+            currentMenuItem = 3;
+            switchFragment(new InfoFragment());
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
