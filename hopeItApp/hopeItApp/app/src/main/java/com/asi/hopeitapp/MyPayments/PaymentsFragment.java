@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.asi.hopeitapp.Main.BaseFragment;
+import com.asi.hopeitapp.Model.Patient;
+import com.asi.hopeitapp.Model.Payment;
 import com.asi.hopeitapp.R;
 import com.bumptech.glide.Glide;
 
@@ -33,12 +35,32 @@ public class PaymentsFragment extends BaseFragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        loadRecyclerView();
-
         return view;
     }
 
-    private void loadRecyclerView(){
+    @Override
+    protected void loadContent() {
+        super.loadContent();
+        loadRecyclerView();
+    }
 
+    private void loadRecyclerView(){
+        List<Payment> payments;
+
+        try {
+            payments = Patient.listAll(Payment.class);
+        }
+        catch (Exception e){
+            recyclerView.setVisibility(View.GONE);
+            return;
+        }
+
+        if(payments.isEmpty()){
+            recyclerView.setVisibility(View.GONE);
+            return;
+        }
+
+        PaymentsAdapter adapter = new PaymentsAdapter(payments, Glide.with(this), getContext());
+        recyclerView.setAdapter(adapter);
     }
 }

@@ -214,7 +214,7 @@ public class NetworkManager {
                     boolean stopLoad = false;
 
                     try { //delete entries, reset id autoincrement
-                        Payment.deleteAll(Patient.class);
+                        Payment.deleteAll(Payment.class);
                         Payment.executeQuery("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'PAYMENT'");
                     } catch (Exception e) {
                         Log.e(CLASS_TAG, "local db critical error: " + e.getMessage());

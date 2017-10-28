@@ -20,4 +20,5 @@
     <string name="payu_environment">local</string> <!-- local | production | sandbox -->
     <string name="payu_token_service_class_full_qualified_name">com.example.service.YourTokenProvide
 rService</string>
+    <string name="patient_place_holder2">Patient Place holder</string>
 </resources>
