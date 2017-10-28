@@ -8,7 +8,7 @@ import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User implements Serializable
+public class PayuWrapper implements Serializable
 {
 
     @SerializedName("payu")
@@ -16,7 +16,7 @@ public class User implements Serializable
     private Payu payu;
     private final static long serialVersionUID = -7984576716430741767L;
 
-    public User(Payu payu) {
+    public PayuWrapper(Payu payu) {
         this.payu = payu;
     }
 

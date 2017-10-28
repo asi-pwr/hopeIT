@@ -10,8 +10,8 @@ import com.asi.hopeitapp.Events.NetworkManagerReady;
 import com.asi.hopeitapp.Model.Patient;
 import com.asi.hopeitapp.Model.PatientList;
 import com.asi.hopeitapp.Model.Payu;
+import com.asi.hopeitapp.Model.PayuWrapper;
 import com.asi.hopeitapp.Model.Token;
-import com.asi.hopeitapp.Model.User;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -56,8 +56,8 @@ public class NetworkManager {
         return hopeService.getPatients();
     }
 
-    private Call<Token> tokenCall(User user) {
-        return hopeService.getToken(user);
+    private Call<Token> tokenCall(PayuWrapper payuWrapper) {
+        return hopeService.getToken(payuWrapper);
     }
 
     //json parsing
@@ -197,7 +197,7 @@ public class NetworkManager {
 
     public void retrieveToken(String userEmail) {
 
-        tokenCall(new User(new Payu(userEmail))).enqueue(new Callback<Token>() {
+        tokenCall(new PayuWrapper(new Payu(userEmail))).enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.body() == null) {
