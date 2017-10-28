@@ -14,8 +14,7 @@ import com.asi.hopeitapp.Model.PatientList;
 import com.asi.hopeitapp.Model.Payment;
 import com.asi.hopeitapp.Model.PaymentList;
 import com.asi.hopeitapp.Model.PayuWrapper;
-import com.asi.hopeitapp.Model.Token;
-import com.asi.hopeitapp.Model.TokenWraper;
+import com.asi.hopeitapp.Model.TokenWrapper;
 
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class NetworkManager {
         return hopeService.getMessages();
     }
 
-    private Call<TokenWraper> tokenCall(PayuWrapper payuWrapper) {
+    private Call<TokenWrapper> tokenCall(PayuWrapper payuWrapper) {
         return hopeService.getToken(payuWrapper);
     }
 
@@ -296,17 +295,16 @@ public class NetworkManager {
         postUpdate(context);
     }
 
-    private TokenWraper tokenWraper = null;
+    private TokenWrapper tokenWrapper;
 
     public void retrieveToken(PayuWrapper payuWrapper) {
-        tokenCall(payuWrapper).enqueue(new Callback<TokenWraper>() {
+        tokenCall(payuWrapper).enqueue(new Callback<TokenWrapper>() {
             @Override
-            public void onResponse(Call<TokenWraper> call, Response<TokenWraper> response) {
+            public void onResponse(Call<TokenWrapper> call, Response<TokenWrapper> response) {
                 if (response.body() == null) {
                     connectionProblem(new Throwable("Server returned null"));
                     return;
                 }
-
                 synchronized (this) {
                     setToken(response.body());
                     notifyAll();
@@ -315,7 +313,7 @@ public class NetworkManager {
             }
 
             @Override
-            public void onFailure(Call<TokenWraper> call, Throwable t) {
+            public void onFailure(Call<TokenWrapper> call, Throwable t) {
                 connectionProblem(t);
             }
         });
@@ -366,12 +364,12 @@ public class NetworkManager {
         dbState = 1;
     }
 
-    public TokenWraper getToken() {
-        return tokenWraper;
+    public TokenWrapper getToken() {
+        return tokenWrapper;
     }
 
-    public void setToken(TokenWraper tokenWraper) {
-        this.tokenWraper = tokenWraper;
+    public void setToken(TokenWrapper tokenWrapper) {
+        this.tokenWrapper = tokenWrapper;
     }
 
     public Boolean getConfirmation() {

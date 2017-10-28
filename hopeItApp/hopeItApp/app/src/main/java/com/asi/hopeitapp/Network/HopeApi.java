@@ -7,11 +7,11 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-class HopeApi {
+public class HopeApi {
 
     private static Retrofit retrofit = null;
 
-    static Retrofit getClient(){
+    public static Retrofit getClient(){
         if(retrofit == null){
 
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

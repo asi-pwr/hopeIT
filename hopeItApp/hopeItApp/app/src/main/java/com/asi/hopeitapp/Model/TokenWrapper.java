@@ -2,23 +2,24 @@
 package com.asi.hopeitapp.Model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TokenWraper implements Serializable
+public class TokenWrapper implements Serializable
 {
 
-    @SerializedName("")
+    @SerializedName("token")
     @Expose
-    private List<Token> token = null;
+    private Token token = null;
     private final static long serialVersionUID = 4999647780784390385L;
 
-    public List<Token> getToken() {
+    public Token getToken() {
         return token;
     }
 
-    public void setToken(List<Token> token) {
+    public void setToken(Token token) {
         this.token = token;
     }
 
