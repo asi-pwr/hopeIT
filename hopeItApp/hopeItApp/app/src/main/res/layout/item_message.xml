@@ -18,13 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/textDisabled"
+        android:layout_marginBottom="0dp"
+        android:textAlignment="textEnd"
         android:text="@string/message_date_place_holder"/>
 
     <TextView
         android:id="@+id/notification_hist_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:textStyle="bold"
         android:textColor="@color/textPrimary"
         android:textSize="18sp"
@@ -35,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="8sp"
+        android:layout_marginBottom="15sp"
         android:layout_marginEnd="10dp"
         android:textColor="@color/textSecondary"
         android:textSize="15sp"
