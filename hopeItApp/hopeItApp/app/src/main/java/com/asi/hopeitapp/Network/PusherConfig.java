@@ -31,7 +31,7 @@ public class PusherConfig {
         options.setCluster("eu");
         Pusher pusher = new Pusher("e6245d3aaf9e8a803d2d", options);
 
-        Channel channel = pusher.subscribe("user-notifications-1");
+        Channel channel = pusher.subscribe("new-message");
 
         channel.bind("new-notification", new SubscriptionEventListener() {
             @Override

@@ -14,6 +14,7 @@ import com.asi.hopeitapp.Model.PatientList;
 import com.asi.hopeitapp.Model.Payment;
 import com.asi.hopeitapp.Model.PaymentList;
 import com.asi.hopeitapp.Model.PayuWrapper;
+import com.asi.hopeitapp.Model.Token;
 import com.asi.hopeitapp.Model.TokenWraper;
 
 import java.util.List;
@@ -295,8 +296,7 @@ public class NetworkManager {
         postUpdate(context);
     }
 
-    private TokenWraper token = null;
-
+    private TokenWraper tokenWraper = null;
 
     public void retrieveToken(PayuWrapper payuWrapper) {
         tokenCall(payuWrapper).enqueue(new Callback<TokenWraper>() {
@@ -311,6 +311,7 @@ public class NetworkManager {
                     setToken(response.body());
                     notifyAll();
                 }
+
             }
 
             @Override
@@ -366,11 +367,11 @@ public class NetworkManager {
     }
 
     public TokenWraper getToken() {
-        return token;
+        return tokenWraper;
     }
 
-    public void setToken(TokenWraper token) {
-        this.token = token;
+    public void setToken(TokenWraper tokenWraper) {
+        this.tokenWraper = tokenWraper;
     }
 
     public Boolean getConfirmation() {

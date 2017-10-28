@@ -1,9 +1,11 @@
 package com.asi.hopeitapp.Payments;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.asi.hopeitapp.Model.Payu;
 import com.asi.hopeitapp.Model.PayuWrapper;
+import com.asi.hopeitapp.Model.Token;
 import com.asi.hopeitapp.Model.TokenWraper;
 import com.asi.hopeitapp.Network.NetworkManager;
 import com.payu.android.sdk.payment.model.MerchantOAuthAccessToken;
@@ -15,7 +17,7 @@ import com.payu.android.sdk.payment.service.exception.ExternalRequestError;
  */
 
 public class MerchantTokenProviderService extends TokenProviderService {
-    private TokenWraper token;
+    private TokenWraper tokenWraper;
 
     public MerchantTokenProviderService(Context context) {
         super(context);
@@ -24,25 +26,24 @@ public class MerchantTokenProviderService extends TokenProviderService {
     @Override
     public MerchantOAuthAccessToken provideAccessToken() throws ExternalRequestError {
 
-        new Thread(() -> {
-            NetworkManager networkManager = NetworkManager.getInstance();
+        NetworkManager networkManager = NetworkManager.getInstance();
+
+        synchronized (this)  {
             networkManager.retrieveToken(new PayuWrapper(new Payu("donor10@example.com"))); // TODO get email adress
+        }
 
-            synchronized (this) {
-                while(networkManager.getToken() == null) {
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+        try{
+            Thread.sleep(5000);
+        }
+        catch (Exception e){
+            Log.e("dvv", "fdgd");
+        }
 
-            token = networkManager.getToken();
-            networkManager.setToken(null);
-        }).start();
 
-        return new MerchantOAuthAccessToken(token.getToken().get(0).toString());
+        tokenWraper = networkManager.getToken();
+        //networkManager.setToken(null);
+
+        return new MerchantOAuthAccessToken(tokenWraper.getToken().get(0).getAccessToken());
     }
 }
 

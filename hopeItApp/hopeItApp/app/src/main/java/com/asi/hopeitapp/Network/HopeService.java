@@ -4,6 +4,7 @@ import com.asi.hopeitapp.Model.DonationWrapper;
 import com.asi.hopeitapp.Model.MessageList;
 import com.asi.hopeitapp.Model.PatientList;
 import com.asi.hopeitapp.Model.PaymentList;
+import com.asi.hopeitapp.Model.Token;
 import com.asi.hopeitapp.Model.TokenWraper;
 import com.asi.hopeitapp.Model.PayuWrapper;
 

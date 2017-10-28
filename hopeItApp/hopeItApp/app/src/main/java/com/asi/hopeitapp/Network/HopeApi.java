@@ -18,9 +18,9 @@ class HopeApi {
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                     .addInterceptor(interceptor)
-                    .connectTimeout(6, TimeUnit.SECONDS)
-                    .readTimeout(6, TimeUnit.SECONDS)
-                    .writeTimeout(6, TimeUnit.SECONDS)
+                    .connectTimeout(9, TimeUnit.SECONDS)
+                    .readTimeout(9, TimeUnit.SECONDS)
+                    .writeTimeout(9, TimeUnit.SECONDS)
                     .build();
 
             retrofit = new Retrofit.Builder()
