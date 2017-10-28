@@ -34,7 +34,7 @@
                     android:id="@+id/patientPicture"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:background="@color/hopeItBlue"
+                    android:background="@color/colorAccent"
                     android:contentDescription="@string/patient_picture_description" />
 
                 <TextView
