@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryDark">#1976D2</color>
-    <color name="colorAccent">#FF3F80</color>
-    <color name="hopeItBlue">#0d438e</color>
+    <color name="colorPrimary">#29B6F6</color>
+    <color name="colorPrimaryDark">#039BE5</color>
+    <color name="colorAccent">#0D438E</color>
 
     <color name="lightStatusBar">#E0E0E0</color>
     <color name="lightAppBar">#F5F5F5</color>
@@ -15,6 +14,8 @@
     <color name="textPrimary">#E6000000</color>
     <color name="textSecondary">#8C000000</color>
     <color name="textDisabled">#66000000</color>
+    <color name="textWhite">#FFFFFF</color>
+
     <color name="divider">#26000000</color>
 
     <color name="menu_object_color">#000000</color>

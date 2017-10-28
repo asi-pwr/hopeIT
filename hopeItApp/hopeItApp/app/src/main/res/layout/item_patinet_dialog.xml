@@ -2,24 +2,11 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/patientName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:text="@string/patient_place_holder"
-            android:textSize="23sp" />
+        android:layout_height="match_parent">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -27,23 +14,38 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/patientPicture"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:background="@color/hopeItBlue"
+                    android:background="@color/colorAccent"
                     android:contentDescription="@string/patient_picture_description" />
+
+                <TextView
+                    android:id="@+id/patientName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/textPrimary"
+                    android:textStyle="bold"
+                    android:text="@string/patient_place_holder"
+                    android:textSize="30sp" />
 
                 <TextView
                     android:id="@+id/patientDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="5dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/textSecondary"/>
 
             </LinearLayout>
 
@@ -53,10 +55,12 @@
             android:id="@+id/patientPayButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
             android:layout_margin="15dp"
             android:backgroundTint="@color/colorAccent"
+            android:textColor="@color/textWhite"
             android:text="@string/pomagam_button" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>
