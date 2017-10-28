@@ -3,11 +3,12 @@ package com.asi.hopeitapp.Payments;
 import com.asi.hopeitapp.Model.Donation;
 import com.asi.hopeitapp.Model.DonationWrapper;
 import com.asi.hopeitapp.Network.NetworkManager;
-import com.payu.android.sdk.payment.PaymentService;
 import com.payu.android.sdk.payment.model.Currency;
 import com.payu.android.sdk.payment.model.Order;
 
 import java.util.UUID;
+
+import static com.asi.hopeitapp.Main.MainActivity.paymentService;
 
 /**
  * Created by sgorawski on 27.10.17.
@@ -18,7 +19,6 @@ public class DonationMaker {
     private Integer donationTypeId;
     private String extOrderId;
     private Integer patientId;
-    private PaymentService mPaymentService;
 
     public DonationMaker(Integer amount, Integer patientId) {
         this.amount = amount;
@@ -37,7 +37,7 @@ public class DonationMaker {
     }
 
     private void startPayment() {
-        mPaymentService.pay(new Order.Builder()
+        paymentService.pay(new Order.Builder()
                 .withNotifyUrl("link")
                 .withAmount(amount)
                 .withCurrency(Currency.PLN)

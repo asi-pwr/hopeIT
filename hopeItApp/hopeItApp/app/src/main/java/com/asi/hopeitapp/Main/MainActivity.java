@@ -20,6 +20,7 @@ import com.asi.hopeitapp.MainPage.MainPageFragment;
 import com.asi.hopeitapp.MyPayments.PaymentsFragment;
 import com.asi.hopeitapp.R;
 import com.bumptech.glide.Glide;
+import com.payu.android.sdk.payment.PaymentService;
 
 import java.util.Stack;
 
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity
 
     private int currentMenuItem = 0;
     private Stack<Fragment> fragmentBackStack = new Stack<>();
+
+    //  PLEASE NO
+    public static PaymentService paymentService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         appBar = getSupportActionBar();
+
+        paymentService = PaymentService.createInstance(this);
 
         if (savedInstanceState == null) {
             loadBaseFragment();
