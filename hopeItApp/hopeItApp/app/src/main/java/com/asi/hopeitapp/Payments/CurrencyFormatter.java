@@ -8,7 +8,7 @@ import com.payu.android.sdk.payment.model.Currency;
 
 public class CurrencyFormatter {
     public static String format(Integer amount, Currency currency) {
-        return String.format("%s %s", toDecimal(amount), currency.name());
+        return String.format("%.2f %s", toDecimal(amount), currency.name());
     }
 
     private static float toDecimal(Integer num) {
