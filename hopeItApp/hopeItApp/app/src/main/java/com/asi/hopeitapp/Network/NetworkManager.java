@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.asi.hopeitapp.Events.NetworkManagerReady;
 import com.asi.hopeitapp.Model.DonationWrapper;
 import com.asi.hopeitapp.Model.Patient;
 import com.asi.hopeitapp.Model.PatientList;
@@ -14,8 +13,6 @@ import com.asi.hopeitapp.Model.Payment;
 import com.asi.hopeitapp.Model.PaymentList;
 import com.asi.hopeitapp.Model.PayuWrapper;
 import com.asi.hopeitapp.Model.Token;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -127,7 +124,6 @@ public class NetworkManager {
         } else {
             Log.i(CLASS_TAG, "Local db up-to-date");
             dbState = 1; //db ready
-            EventBus.getDefault().postSticky(new NetworkManagerReady(true));
         }
     }
 
@@ -297,7 +293,6 @@ public class NetworkManager {
         editor.apply();
 
         dbState = 1; //db ready
-        EventBus.getDefault().postSticky(new NetworkManagerReady(true));
     }
 
     public int getDbState() {
