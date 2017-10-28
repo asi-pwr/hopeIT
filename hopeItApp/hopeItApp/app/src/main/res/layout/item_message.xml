@@ -2,11 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="10dp"
-    android:layout_marginStart="10dp"
     android:layout_marginBottom="7dp"
     android:layout_marginTop="7dp"
     android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/notification_hist_time"
@@ -19,10 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:textAllCaps="true"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:textAlignment="center"
+        android:textColor="@color/textPrimary"
         android:textSize="18sp"
         android:text="@string/message_title_place_holder"/>
 
@@ -32,11 +35,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="8sp"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:textColor="@color/textBlack"
+        android:textColor="@color/textSecondary"
         android:textSize="15sp"
         android:text="@string/message_place_holder"/>
+    </LinearLayout>
 
     <include layout="@layout/divider" />
 

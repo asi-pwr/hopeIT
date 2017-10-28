@@ -25,7 +25,7 @@
             android:id="@+id/patientPicture"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/hopeItBlue"
             android:contentDescription="@string/patient_picture_description" />
 
         <ScrollView
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="15dp"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorAccent"
             android:text="@string/pomagam_button" />
 
     </LinearLayout>
