@@ -25,6 +25,10 @@ public class Donation implements Serializable
     private String extOrderId;
     private final static long serialVersionUID = 955789531288644790L;
 
+    public Donation(){
+
+    }
+
     public Donation(Integer amount, Integer donationTypeId, Integer patientId, String extOrderId) {
         this.amount = amount;
         this.donationTypeId = donationTypeId;

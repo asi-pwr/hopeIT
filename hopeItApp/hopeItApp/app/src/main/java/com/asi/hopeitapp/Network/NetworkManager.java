@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.asi.hopeitapp.Model.Donation;
 import com.asi.hopeitapp.Model.DonationWrapper;
 import com.asi.hopeitapp.Model.Message;
 import com.asi.hopeitapp.Model.MessageList;
@@ -69,7 +70,7 @@ public class NetworkManager {
         return hopeService.getToken(payuWrapper);
     }
 
-    private Call<String> donationCall(DonationWrapper donationWrapper) {
+    private Call<DonationWrapper> donationCall(DonationWrapper donationWrapper) {
         return hopeService.postDonation(donationWrapper);
     }
 
@@ -318,9 +319,9 @@ public class NetworkManager {
     private Boolean confirmation = null;
 
     public void postDonation(DonationWrapper donationWrapper) {
-        donationCall(donationWrapper).enqueue(new Callback<String>() {
+        hopeService.postDonation(donationWrapper).enqueue(new Callback<DonationWrapper>(){
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<DonationWrapper> call, Response<DonationWrapper> response) {
                 if (response.body() == null) {
                     connectionProblem(new Throwable("Server returned null"));
                     return;
@@ -333,7 +334,7 @@ public class NetworkManager {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<DonationWrapper> call, Throwable t) {
                 connectionProblem(t);
             }
         });

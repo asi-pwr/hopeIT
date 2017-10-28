@@ -1,18 +1,15 @@
 package com.asi.hopeitapp.Messages;
 
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.asi.hopeitapp.Main.BaseFragment;
 import com.asi.hopeitapp.Model.Message;
@@ -25,9 +22,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static android.app.Notification.DEFAULT_LIGHTS;
-import static android.app.Notification.DEFAULT_VIBRATE;
 
 public class MessagesFragment extends BaseFragment {
 
@@ -86,19 +80,9 @@ public class MessagesFragment extends BaseFragment {
         lastMessageSize = settings.getInt("MessageCount", 0);
 
         if (lastMessageSize != messages.size()){
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext(), "default")
-                    .setDefaults(DEFAULT_VIBRATE | DEFAULT_LIGHTS)
-                    .setSmallIcon(R.drawable.ic_heart)
-                    .setLargeIcon(BitmapFactory.decodeResource(getContext().getResources(),
-                            R.mipmap.ic_launcher))
-                    .setContentTitle("Nowa wiadomość od hopeIt")
-                    .setContentText(messages.get(0).getTitle())
-                    .setAutoCancel(true);
 
-            NotificationManager mNotificationManager = (NotificationManager) getContext()
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
-
-            mNotificationManager.notify(0, mBuilder.build());
+            Toast.makeText(getContext(), "Dostałeś nowe wiadomości od fundacjii",
+                    Toast.LENGTH_SHORT).show();
 
             SharedPreferences.Editor editor = settings.edit();
             editor.putInt("MessageCount", messages.size());
