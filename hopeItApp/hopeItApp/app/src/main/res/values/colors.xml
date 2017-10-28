@@ -5,4 +5,7 @@
     <color name="colorAccent">#0097a7</color>
 
     <color name="menuIcon" >#000000</color>
+
+    <color name="textBlack" >#000000</color>
+    <color name="menu_object_color">#000000</color>
 </resources>

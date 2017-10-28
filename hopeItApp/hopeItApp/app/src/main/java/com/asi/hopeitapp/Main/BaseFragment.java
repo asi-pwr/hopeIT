@@ -49,6 +49,7 @@ public abstract class BaseFragment extends Fragment {
                         Toast.makeText(getContext(), R.string.no_server_connection,
                                 Toast.LENGTH_SHORT).show();
                     }
+                    networkManager.networkProblemInfoDisplayed();
                     networkHandler.removeCallbacks(this);
                     break;
                 case 3:

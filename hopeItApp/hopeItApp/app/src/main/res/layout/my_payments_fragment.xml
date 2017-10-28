@@ -1,12 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mainPageRecyclerView"
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/stats"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:cardCornerRadius="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/payment_text_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="4dp"
+                    android:textAllCaps="true"
+                    android:textSize="42sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/payments_text2"/>
+
+                <TextView
+                    android:id="@+id/payment_text_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/payment_text_2"
+                    android:layout_alignBottom="@id/payment_text_2"
+                    android:layout_marginEnd="5dp"
+                    android:textAllCaps="true"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/textBlack"
+                    android:text="@string/payments_text1"/>
+
+                <TextView
+                    android:id="@+id/payment_text_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/payment_text_2"
+                    android:layout_marginEnd="4dp"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text="@string/payments_text3"/>
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:backgroundTint="@color/textBlack">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/donates"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="#FFFFFF"
+                        android:textAllCaps="true"
+                        android:layout_margin="4dp" />
+
+                    <TextView
+                        android:id="@+id/cash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:textSize="16sp"
+                        android:textColor="#FFFFFF"
+                        android:textAllCaps="true"
+                        android:layout_margin="4dp" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mainPageRecyclerView"
+                android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
 
 </LinearLayout>

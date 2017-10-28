@@ -7,6 +7,8 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.asi.hopeitapp.Model.DonationWrapper;
+import com.asi.hopeitapp.Model.Message;
+import com.asi.hopeitapp.Model.MessageList;
 import com.asi.hopeitapp.Model.Patient;
 import com.asi.hopeitapp.Model.PatientList;
 import com.asi.hopeitapp.Model.Payment;
@@ -58,6 +60,11 @@ public class NetworkManager {
     private Call<PaymentList> paymentCall() {
         return hopeService.getPayments();
     }
+
+    private Call<MessageList> messageCall() {
+        return hopeService.getMessages();
+    }
+
     private Call<Token> tokenCall(PayuWrapper payuWrapper) {
         return hopeService.getToken(payuWrapper);
     }
@@ -78,6 +85,10 @@ public class NetworkManager {
         return data.getPayments();
     }
 
+    private List<Message> fetchMessages(Response<MessageList> response) {
+        MessageList data = response.body();
+        return data.getMessages();
+    }
 
     private boolean checkNetworkStatus(final Context context){
         ConnectivityManager connectivityManager =
@@ -214,7 +225,7 @@ public class NetworkManager {
                     boolean stopLoad = false;
 
                     try { //delete entries, reset id autoincrement
-                        Payment.deleteAll(Patient.class);
+                        Payment.deleteAll(Payment.class);
                         Payment.executeQuery("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'PAYMENT'");
                     } catch (Exception e) {
                         Log.e(CLASS_TAG, "local db critical error: " + e.getMessage());
@@ -231,6 +242,45 @@ public class NetworkManager {
 
                 @Override
                 public void onFailure(Call<PaymentList> call, Throwable t) {
+                    connectionProblem(t);
+                }
+            });
+        }).start();
+
+        new Thread(() -> { //GET Payments
+            messageCall().enqueue(new Callback<MessageList>() {
+                @Override
+                public void onResponse(Call<MessageList> call, Response<MessageList> response) {
+                    if (response.body() == null) {
+                        connectionProblem(new Throwable("Server returned null"));
+                        return;
+                    }
+
+                    List<Message> messages = fetchMessages(response);
+
+                    Log.i(CLASS_TAG, "Api Test: " + messages.get(0).getTitle());
+
+                    boolean stopLoad = false;
+
+
+                    try { //delete entries, reset id autoincrement
+                        Message.deleteAll(Message.class);
+                        Message.executeQuery("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'MESSAGE'");
+                    } catch (Exception e) {
+                        Log.e(CLASS_TAG, "local db critical error: " + e.getMessage());
+                        stopLoad = true;
+                    }
+
+                    if (!stopLoad) {
+                        for (Message message : messages) {
+                            message.setId(null);
+                            message.save();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<MessageList> call, Throwable t) {
                     connectionProblem(t);
                 }
             });

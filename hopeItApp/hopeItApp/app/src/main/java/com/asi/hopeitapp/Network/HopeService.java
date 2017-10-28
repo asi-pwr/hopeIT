@@ -1,6 +1,7 @@
 package com.asi.hopeitapp.Network;
 
 import com.asi.hopeitapp.Model.DonationWrapper;
+import com.asi.hopeitapp.Model.MessageList;
 import com.asi.hopeitapp.Model.PatientList;
 import com.asi.hopeitapp.Model.PaymentList;
 import com.asi.hopeitapp.Model.Token;
@@ -23,6 +24,9 @@ interface HopeService {
 
     @GET("v1/payments")
     Call<PaymentList> getPayments();
+
+    @GET("v1/messages")
+    Call<MessageList> getMessages();
 
     @POST("v1/payu/token")
     Call<Token> getToken(@Body PayuWrapper payuWrapper);
