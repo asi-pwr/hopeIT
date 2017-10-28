@@ -2,6 +2,7 @@ package com.asi.hopeitapp.MainPage;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.asi.hopeitapp.Main.MainActivity;
 import com.asi.hopeitapp.Model.Patient;
+import com.asi.hopeitapp.Payments.CartActivity;
 import com.asi.hopeitapp.Payments.DonationMaker;
 import com.asi.hopeitapp.R;
 import com.bumptech.glide.RequestManager;
@@ -118,7 +121,7 @@ class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.Holder> {
 
     private void payClicked(Patient patient){
         // TODO login conditions etc
-        DonationMaker payment = new DonationMaker(20000, 1);
-        payment.make();
+        Intent intent = new Intent(context, CartActivity.class);
+        context.startActivity(intent);
     }
 }

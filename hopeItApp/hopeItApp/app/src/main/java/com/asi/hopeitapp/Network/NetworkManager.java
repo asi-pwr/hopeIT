@@ -183,7 +183,9 @@ public class NetworkManager {
 
                     List<Patient> patients = fetchPatients(response);
 
-                    Log.i(CLASS_TAG, "Api Test: " + patients.get(0).getName());
+                    if(patients.size()>0) {
+                        Log.i(CLASS_TAG, "Api Test: " + patients.get(0).getName());
+                    }
 
                     boolean stopLoad = false;
 
@@ -221,7 +223,9 @@ public class NetworkManager {
 
                     List<Payment> payments = fetchPayments(response);
 
-                    Log.i(CLASS_TAG, "Api Test: " + payments.get(0).getStatus());
+                    if(payments.size()>0) {
+                        Log.i(CLASS_TAG, "Api Test: " + payments.get(0).getStatus());
+                    }
 
                     boolean stopLoad = false;
 
@@ -259,7 +263,9 @@ public class NetworkManager {
 
                     List<Message> messages = fetchMessages(response);
 
-                    Log.i(CLASS_TAG, "Api Test: " + messages.get(0).getTitle());
+                    if(messages.size()>0) {
+                        Log.i(CLASS_TAG, "Api Test: " + messages.get(0).getTitle());
+                    }
 
                     boolean stopLoad = false;
 

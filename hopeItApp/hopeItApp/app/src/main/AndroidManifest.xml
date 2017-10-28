@@ -38,6 +38,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity android:name=".Payments.CartActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <!-- PayU SDK configuration -->
         <activity android:name="com.payu.android.sdk.payment.ui.NewCardActivity" />
         <activity android:name="com.payu.android.sdk.payment.ui.PaymentMethodListActivity" />
