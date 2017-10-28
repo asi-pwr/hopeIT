@@ -13,4 +13,6 @@
     <string name="patient_picture_description">Patient picture</string>
     <string name="pomagam_button">Pomagam!</string>
     <string name="patient_picture_overlay">patient picture overlay</string>
+    <string name="title_payments"><![CDATA[Pomogłem <3]]></string>
+    <string name="menu_payments">Pomogłem</string>
 </resources>

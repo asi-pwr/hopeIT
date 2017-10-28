@@ -84,6 +84,7 @@ public abstract class BaseFragment extends Fragment {
     public void networkEvent(NetworkManagerReady event) {
         EventBus.getDefault().removeStickyEvent(event);
         if (event.isNetworkManagerFinished()){
+            Log.i(CLASS_TAG, "Network manager ready msg received");
             run();
         }
     }

@@ -5,5 +5,9 @@
         android:id="@+id/nav_main"
         android:icon="@drawable/ic_heart"
         android:title="@string/menu_main" />
+    <item
+        android:id="@+id/nav_payments"
+        android:icon="@drawable/ic_heart"
+        android:title="@string/menu_payments" />
 
 </menu>

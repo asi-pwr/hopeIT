@@ -1,54 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:orientation="vertical">
 
-            <LinearLayout
+        <TextView
+            android:id="@+id/patientName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/patient_place_holder"
+            android:textSize="23sp" />
+
+        <ImageView
+            android:id="@+id/patientPicture"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@color/colorPrimary"
+            android:contentDescription="@string/patient_picture_description" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:id="@+id/patientDescription"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/patientName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/patient_place_holder"
-                    android:textSize="23sp" />
+        </ScrollView>
 
-                <ImageView
-                    android:id="@+id/patientPicture"
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:contentDescription="@string/patient_picture_description" />
+        <Button
+            android:id="@+id/patientPayButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="15dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/pomagam_button" />
 
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp">
+    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/patientDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </ScrollView>
-
-                <Button
-                    android:id="@+id/patinetPayButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_margin="15dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="@string/pomagam_button"/>
-
-            </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-</LinearLayout>
+</android.support.v7.widget.CardView>

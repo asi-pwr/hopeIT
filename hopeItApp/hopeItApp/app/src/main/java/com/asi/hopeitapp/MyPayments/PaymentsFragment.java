@@ -1,8 +1,7 @@
-package com.asi.hopeitapp.MainPage;
+package com.asi.hopeitapp.MyPayments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.asi.hopeitapp.Main.BaseFragment;
-import com.asi.hopeitapp.Model.Patient;
 import com.asi.hopeitapp.R;
 import com.bumptech.glide.Glide;
 
@@ -19,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainPageFragment extends BaseFragment {
+public class PaymentsFragment extends BaseFragment {
 
     @BindView(R.id.mainPageRecyclerView)
     RecyclerView recyclerView;
@@ -28,7 +26,7 @@ public class MainPageFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.main_page_fragment, container, false);
+        View view =  inflater.inflate(R.layout.my_payments_fragment, container, false);
         ButterKnife.bind(this, view);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -41,22 +39,6 @@ public class MainPageFragment extends BaseFragment {
     }
 
     private void loadRecyclerView(){
-        List<Patient> patients;
 
-        try {
-            patients = Patient.listAll(Patient.class);
-        }
-        catch (Exception e){
-            recyclerView.setVisibility(View.GONE);
-            return;
-        }
-
-        if(patients.isEmpty()){
-            recyclerView.setVisibility(View.GONE);
-            return;
-        }
-
-        MainPageAdapter adapter = new MainPageAdapter(patients, Glide.with(this), getContext());
-        recyclerView.setAdapter(adapter);
     }
 }

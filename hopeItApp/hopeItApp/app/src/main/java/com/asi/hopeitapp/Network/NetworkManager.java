@@ -9,6 +9,8 @@ import android.util.Log;
 import com.asi.hopeitapp.Events.NetworkManagerReady;
 import com.asi.hopeitapp.Model.Patient;
 import com.asi.hopeitapp.Model.PatientList;
+import com.asi.hopeitapp.Model.Payment;
+import com.asi.hopeitapp.Model.PaymentList;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -53,11 +55,20 @@ public class NetworkManager {
         return hopeService.getPatients();
     }
 
+    private Call<PaymentList> paymentCall(){
+        return hopeService.getPayments();
+    }
+
     //json parsing
 
     private List<Patient> fetchPatients(Response<PatientList> response) {
         PatientList data = response.body();
         return data.getPatients();
+    }
+
+    private List<Payment> fetchPayments(Response<PaymentList> response) {
+        PaymentList data = response.body();
+        return data.getPayments();
     }
 
 
@@ -143,19 +154,19 @@ public class NetworkManager {
     }
 
     private void loadAppData(final Context context){
-        patientCall().enqueue(new Callback<PatientList>() {
-            @Override
-            public void onResponse(Call<PatientList> call, Response<PatientList> response) {
-                if (response.body() == null) {
-                    connectionProblem(new Throwable("Server returned null"));
-                    return;
-                }
+        new Thread(() -> { //GET Patients
+            patientCall().enqueue(new Callback<PatientList>() {
+                @Override
+                public void onResponse(Call<PatientList> call, Response<PatientList> response) {
+                    if (response.body() == null) {
+                        connectionProblem(new Throwable("Server returned null"));
+                        return;
+                    }
 
-                List<Patient> patients = fetchPatients(response);
+                    List<Patient> patients = fetchPatients(response);
 
-                Log.i(CLASS_TAG, "Api Test: " + patients.get(0).getName());
+                    Log.i(CLASS_TAG, "Api Test: " + patients.get(0).getName());
 
-                new Thread(() -> {
                     boolean stopLoad = false;
 
                     try { //delete entries, reset id autoincrement
@@ -172,16 +183,54 @@ public class NetworkManager {
                             patient.save();
                         }
                     }
+                }
 
-                    postUpdate(context);
-                }).start();
-            }
+                @Override
+                public void onFailure(Call<PatientList> call, Throwable t) {
+                    connectionProblem(t);
+                }
+            });
+        }).start();
 
-            @Override
-            public void onFailure(Call<PatientList> call, Throwable t) {
-                connectionProblem(t);
-            }
-        });
+        new Thread(() -> { //GET Payments
+            paymentCall().enqueue(new Callback<PaymentList>() {
+                @Override
+                public void onResponse(Call<PaymentList> call, Response<PaymentList> response) {
+                    if (response.body() == null) {
+                        connectionProblem(new Throwable("Server returned null"));
+                        return;
+                    }
+
+                    List<Payment> payments = fetchPayments(response);
+
+                    Log.i(CLASS_TAG, "Api Test: " + payments.get(0).getStatus());
+
+                    boolean stopLoad = false;
+
+                    try { //delete entries, reset id autoincrement
+                        Payment.deleteAll(Patient.class);
+                        Payment.executeQuery("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'PAYMENT'");
+                    } catch (Exception e) {
+                        Log.e(CLASS_TAG, "local db critical error: " + e.getMessage());
+                        stopLoad = true;
+                    }
+
+                    if (!stopLoad) {
+                        for (Payment payment : payments) {
+                            payment.setId(null);
+                            payment.save();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<PaymentList> call, Throwable t) {
+                    connectionProblem(t);
+                }
+            });
+        }).start();
+
+        postUpdate(context);
     }
 
     private void postUpdate(final Context context) {
