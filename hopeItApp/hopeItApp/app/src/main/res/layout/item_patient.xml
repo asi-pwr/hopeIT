@@ -9,21 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="2dp"
-        android:layout_marginEnd="10dp"
-        app:cardCornerRadius="8dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <FrameLayout
                 android:id="@+id/patientFrameLayout"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_margin="4dp"
-                android:background="@color/colorPrimary">
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/hopeItBlue">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -39,31 +38,37 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@string/patient_picture_description"/>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/heart_overlay"
-                    android:contentDescription="@string/patient_picture_overlay"/>
-
             </FrameLayout>
 
-            <TextView
-                android:id="@+id/patientItemName"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_toEndOf="@id/patientFrameLayout"
-                android:textSize="17sp"
-                android:text="@string/patient_place_holder"/>
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/patientItemDescription"
-                android:layout_width="210dp"
-                android:layout_height="95dp"
-                android:layout_alignStart="@id/patientItemName"
-                android:layout_below="@id/patientItemName"/>
+                <TextView
+                    android:id="@+id/patientItemName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/textPrimary"
+                    android:textStyle="bold"
+                    android:text="@string/patient_place_holder"/>
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/patientItemDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textSecondary"
+                    android:layout_alignStart="@id/patientItemName"
+                    android:layout_below="@id/patientItemName"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
