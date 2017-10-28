@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.asi.hopeitapp.Events.NetworkManagerReady;
+import com.asi.hopeitapp.Model.DonationWrapper;
 import com.asi.hopeitapp.Model.Patient;
 import com.asi.hopeitapp.Model.PatientList;
 import com.asi.hopeitapp.Model.Payu;
@@ -58,6 +59,10 @@ public class NetworkManager {
 
     private Call<Token> tokenCall(PayuWrapper payuWrapper) {
         return hopeService.getToken(payuWrapper);
+    }
+
+    private Call<String> donationCall(DonationWrapper donationWrapper) {
+        return hopeService.postDonation(donationWrapper);
     }
 
     //json parsing
@@ -195,9 +200,9 @@ public class NetworkManager {
     private Token token;
 
 
-    public void retrieveToken(String userEmail) {
+    public void retrieveToken(PayuWrapper payuWrapper) {
 
-        tokenCall(new PayuWrapper(new Payu(userEmail))).enqueue(new Callback<Token>() {
+        tokenCall(payuWrapper).enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.body() == null) {
@@ -205,11 +210,31 @@ public class NetworkManager {
                     return;
                 }
 
-               setToken(response.body());
+                synchronized (this) {
+                    setToken(response.body());
+                    notifyAll();
+                }
             }
 
             @Override
             public void onFailure(Call<Token> call, Throwable t) {
+                connectionProblem(t);
+            }
+        });
+    }
+
+    public void submitDonation(DonationWrapper donationWrapper) {
+        donationCall(donationWrapper).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body() == null) {
+                    connectionProblem(new Throwable("Server returned null"));
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
                 connectionProblem(t);
             }
         });

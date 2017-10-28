@@ -2,6 +2,8 @@ package com.asi.hopeitapp.Payments;
 
 import android.content.Context;
 
+import com.asi.hopeitapp.Model.Payu;
+import com.asi.hopeitapp.Model.PayuWrapper;
 import com.asi.hopeitapp.Model.Token;
 import com.asi.hopeitapp.Network.NetworkManager;
 import com.payu.android.sdk.payment.model.MerchantOAuthAccessToken;
@@ -13,6 +15,7 @@ import com.payu.android.sdk.payment.service.exception.ExternalRequestError;
  */
 
 public class MerchantTokenProviderService extends TokenProviderService {
+    private Token token;
 
     public MerchantTokenProviderService(Context context) {
         super(context);
@@ -20,10 +23,24 @@ public class MerchantTokenProviderService extends TokenProviderService {
 
     @Override
     public MerchantOAuthAccessToken provideAccessToken() throws ExternalRequestError {
-        NetworkManager networkManager = NetworkManager.getInstance();
-        networkManager.retrieveToken("asjdioj@auishd.saoij"); // TODO get email adress
-        Token token = networkManager.getToken();
-        networkManager.setToken(null);
+
+        new Thread(() -> {
+            NetworkManager networkManager = NetworkManager.getInstance();
+            networkManager.retrieveToken(new PayuWrapper(new Payu("asjdioj@auishd.saoij"))); // TODO get email adress
+
+            synchronized (this) {
+                while(networkManager.getToken() == null) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            token = networkManager.getToken();
+            networkManager.setToken(null);
+        }).start();
 
         return new MerchantOAuthAccessToken(token.getAccessToken());
     }
