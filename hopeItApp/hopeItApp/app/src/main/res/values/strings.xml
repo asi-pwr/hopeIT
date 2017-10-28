@@ -15,4 +15,9 @@
     <string name="patient_picture_overlay">patient picture overlay</string>
     <string name="title_payments"><![CDATA[Pomogłem <3]]></string>
     <string name="menu_payments">Pomogłem</string>
+
+    <string name="payu_language">auto</string> <!-- auto | Polish | English | Czech | German -->
+    <string name="payu_environment">local</string> <!-- local | production | sandbox -->
+    <string name="payu_token_service_class_full_qualified_name">com.example.service.YourTokenProvide
+rService</string>
 </resources>

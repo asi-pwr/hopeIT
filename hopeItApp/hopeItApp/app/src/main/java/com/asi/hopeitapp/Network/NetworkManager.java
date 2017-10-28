@@ -7,10 +7,13 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.asi.hopeitapp.Events.NetworkManagerReady;
+import com.asi.hopeitapp.Model.DonationWrapper;
 import com.asi.hopeitapp.Model.Patient;
 import com.asi.hopeitapp.Model.PatientList;
 import com.asi.hopeitapp.Model.Payment;
 import com.asi.hopeitapp.Model.PaymentList;
+import com.asi.hopeitapp.Model.PayuWrapper;
+import com.asi.hopeitapp.Model.Token;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -51,12 +54,19 @@ public class NetworkManager {
         return hopeService.getLastUpdateId();
     }
 
-    private Call<PatientList> patientCall(){
+    private Call<PatientList> patientCall() {
         return hopeService.getPatients();
     }
 
-    private Call<PaymentList> paymentCall(){
+    private Call<PaymentList> paymentCall() {
         return hopeService.getPayments();
+    }
+    private Call<Token> tokenCall(PayuWrapper payuWrapper) {
+        return hopeService.getToken(payuWrapper);
+    }
+
+    private Call<String> donationCall(DonationWrapper donationWrapper) {
+        return hopeService.postDonation(donationWrapper);
     }
 
     //json parsing
@@ -233,6 +243,49 @@ public class NetworkManager {
         postUpdate(context);
     }
 
+    private Token token;
+
+
+    public void retrieveToken(PayuWrapper payuWrapper) {
+
+        tokenCall(payuWrapper).enqueue(new Callback<Token>() {
+            @Override
+            public void onResponse(Call<Token> call, Response<Token> response) {
+                if (response.body() == null) {
+                    connectionProblem(new Throwable("Server returned null"));
+                    return;
+                }
+
+                synchronized (this) {
+                    setToken(response.body());
+                    notifyAll();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Token> call, Throwable t) {
+                connectionProblem(t);
+            }
+        });
+    }
+
+    public void submitDonation(DonationWrapper donationWrapper) {
+        donationCall(donationWrapper).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body() == null) {
+                    connectionProblem(new Throwable("Server returned null"));
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                connectionProblem(t);
+            }
+        });
+    }
+
     private void postUpdate(final Context context) {
         localLastUpdateId = apiLastUpdateId;
 
@@ -253,5 +306,13 @@ public class NetworkManager {
 
     public void networkProblemInfoDisplayed(){
         dbState = 1;
+    }
+
+    public Token getToken() {
+        return token;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
     }
 }

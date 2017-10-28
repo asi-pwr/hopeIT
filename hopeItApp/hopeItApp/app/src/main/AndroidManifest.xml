@@ -20,6 +20,8 @@
         <meta-data android:name="QUERY_LOG" android:value="true" />
         <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.asi.hopeitapp.Model" />
 
+
+
         <!-- Bug in activity resolver(?), fix later -->
         <activity
             android:name=".Main.SplashActivity"
@@ -37,6 +39,25 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <!-- PayU SDK configuration -->
+        <activity android:name="com.payu.android.sdk.payment.ui.NewCardActivity" />
+        <activity android:name="com.payu.android.sdk.payment.ui.PaymentMethodListActivity" />
+        <activity
+            android:name="com.payu.android.sdk.payment.ui.LocalCardCheckActivity"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity android:name="com.payu.android.sdk.payment.ui.LoginActivity" />
+        <activity
+            android:name="com.payu.android.sdk.payment.ui.PaymentActivity"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name="com.payu.android.sdk.payment.ui.AuthorizationActivity"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity android:name="com.payu.android.sdk.payment.ui.StrongAuthorizationActivity" />
+        <service android:name="com.payu.android.sdk.payment.service.PaymentEntrypointService"
+            android:exported="false"/>
     </application>
+
+
 
 </manifest>
